@@ -96,7 +96,7 @@ void CSE7761Component::dump_config() {
     uint32_t regVal = 0;
     for (uint8_t i = 0; i < 8; i++) {
         regVal = this->read_(CSE7761_REG_RMSIAC + i, 2);
-        ESP_LOGCONFIG(TAG, "Reg%02hhX: %d - actual:%d", CSE7761_REG_RMSIAC + i, regVal, this->data_.coefficient[i]);
+        ESP_LOGCONFIG(TAG, "Reg%02hhX: %d - actual:%d", CSE7761_REG_RMSIAC + i, (int)regVal, (int)this->data_.coefficient[i]);
     }
     if (this->is_failed()) ESP_LOGE(TAG, ESP_LOG_MSG_COMM_FAIL); // Communication failure
     LOG_UPDATE_INTERVAL(this); // Log sensor update interval
@@ -340,9 +340,9 @@ void CSE7761Component::get_data_() {
     this->data_.active_power[1] = (int32_t) value;
     
     ESP_LOGD(TAG, "V:%d, F:%d, IA:%d, PowA:%d, IB:%d, PowB:%d", 
-        this->data_.voltage_rms, this->data_.frequency, 
-        this->data_.current_rms[0], this->data_.active_power[0], 
-        this->data_.current_rms[1], this->data_.active_power[1]);
+        (int)this->data_.voltage_rms, (int)this->data_.frequency, 
+        (int)this->data_.current_rms[0], (int)this->data_.active_power[0], 
+        (int)this->data_.current_rms[1], (int)this->data_.active_power[1]);
     // Convert RMS voltage and publish
     float voltage = (float) this->data_.voltage_rms / this->coefficient_by_unit_(RMS_UC);
     if (this->voltage_sensor_ != nullptr) this->voltage_sensor_->publish_state(voltage);

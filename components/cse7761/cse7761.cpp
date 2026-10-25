@@ -100,7 +100,8 @@ void CSE7761Component::dump_config() {
     }
     if (this->is_failed()) ESP_LOGE(TAG, ESP_LOG_MSG_COMM_FAIL); // Communication failure
     LOG_UPDATE_INTERVAL(this); // Log sensor update interval
-    this->check_uart_settings(38400, 1, uart::UART_CONFIG_PARITY_EVEN, 8); // Verify UART: 38400 8E1
+    //removed as being deprecated
+    //this->check_uart_settings(38400, 1, uart::UART_CONFIG_PARITY_EVEN, 8); // Verify UART: 38400 8E1
 }
 
 float CSE7761Component::get_setup_priority() const {
